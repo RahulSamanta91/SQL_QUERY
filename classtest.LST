@@ -1,0 +1,177 @@
+SQL> clear screen
+SQL> --display ename ,job and salary with the bonus for the manager 20% ,analyst 15%,clerk 10% rest 5%
+SQL> SELECT ENAME,
+  2         JOB,
+  3         SAL,
+  4         CASE
+  5             WHEN JOB = 'MANAGER' THEN SAL * 0.20
+  6             WHEN JOB = 'ANALYST' THEN SAL * 0.15
+  7             WHEN JOB = 'CLERK'   THEN SAL * 0.10
+  8             ELSE SAL * 0.05
+  9         END AS BONUS
+ 10  FROM EMP;
+
+ENAME      JOB              SAL      BONUS                                      
+---------- --------- ---------- ----------                                      
+SMITH      CLERK            800         80                                      
+ALLEN      SALESMAN        1600         80                                      
+WARD       SALESMAN        1250       62.5                                      
+JONES      MANAGER         2975        595                                      
+MARTIN     SALESMAN        1250       62.5                                      
+BLAKE      MANAGER         2850        570                                      
+CLARK      MANAGER         2450        490                                      
+SCOTT      ANALYST         3000        450                                      
+KING       PRESIDENT       5000        250                                      
+TURNER     SALESMAN        1500         75                                      
+ADAMS      CLERK           1100        110                                      
+
+ENAME      JOB              SAL      BONUS                                      
+---------- --------- ---------- ----------                                      
+JAMES      CLERK            950         95                                      
+FORD       ANALYST         3000        450                                      
+MILLER     CLERK           1300        130                                      
+
+14 rows selected.
+
+SQL> set pages 100 lines 100
+SQL> select * from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> SELECT ENAME,
+  2         JOB,
+  3         SAL,
+  4         SAL +
+  5         CASE
+  6             WHEN JOB = 'MANAGER' THEN SAL * 0.20
+  7             WHEN JOB = 'ANALYST' THEN SAL * 0.15
+  8             WHEN JOB = 'CLERK'   THEN SAL * 0.10
+  9             ELSE SAL * 0.05
+ 10         END AS TOTAL_SALARY
+ 11  FROM EMP;
+
+ENAME      JOB              SAL TOTAL_SALARY                                                        
+---------- --------- ---------- ------------                                                        
+SMITH      CLERK            800          880                                                        
+ALLEN      SALESMAN        1600         1680                                                        
+WARD       SALESMAN        1250       1312.5                                                        
+JONES      MANAGER         2975         3570                                                        
+MARTIN     SALESMAN        1250       1312.5                                                        
+BLAKE      MANAGER         2850         3420                                                        
+CLARK      MANAGER         2450         2940                                                        
+SCOTT      ANALYST         3000         3450                                                        
+KING       PRESIDENT       5000         5250                                                        
+TURNER     SALESMAN        1500         1575                                                        
+ADAMS      CLERK           1100         1210                                                        
+JAMES      CLERK            950         1045                                                        
+FORD       ANALYST         3000         3450                                                        
+MILLER     CLERK           1300         1430                                                        
+
+14 rows selected.
+
+SQL> SELECT ENAME,
+  2         DEPTNO,
+  3         CASE
+  4             WHEN DEPTNO = 10 THEN 'ACCOUNTING'
+  5             WHEN DEPTNO = 20 THEN 'RESEARCH'
+  6             WHEN DEPTNO = 30 THEN 'SALES'
+  7             ELSE 'OPERATIONS'
+  8         END AS DNAME
+  9  FROM EMP;
+
+ENAME          DEPTNO DNAME                                                                         
+---------- ---------- ----------                                                                    
+SMITH              20 RESEARCH                                                                      
+ALLEN              30 SALES                                                                         
+WARD               30 SALES                                                                         
+JONES              20 RESEARCH                                                                      
+MARTIN             30 SALES                                                                         
+BLAKE              30 SALES                                                                         
+CLARK              10 ACCOUNTING                                                                    
+SCOTT              20 RESEARCH                                                                      
+KING               10 ACCOUNTING                                                                    
+TURNER             30 SALES                                                                         
+ADAMS              20 RESEARCH                                                                      
+JAMES              30 SALES                                                                         
+FORD               20 RESEARCH                                                                      
+MILLER             10 ACCOUNTING                                                                    
+
+14 rows selected.
+
+SQL> SELECT ENAME,
+  2         SAL,
+  3         HIREDATE,
+  4         CASE
+  5             WHEN SAL > 4000
+  6              AND HIREDATE < '01-JAN-82'
+  7             THEN 'ELIGIBLE'
+  8             ELSE 'NOT ELIGIBLE'
+  9         END AS PROMOTION_STATUS
+ 10  FROM EMP;
+
+ENAME             SAL HIREDATE  PROMOTION_ST                                                        
+---------- ---------- --------- ------------                                                        
+SMITH             800 17-DEC-80 NOT ELIGIBLE                                                        
+ALLEN            1600 20-FEB-81 NOT ELIGIBLE                                                        
+WARD             1250 22-FEB-81 NOT ELIGIBLE                                                        
+JONES            2975 02-APR-81 NOT ELIGIBLE                                                        
+MARTIN           1250 28-SEP-81 NOT ELIGIBLE                                                        
+BLAKE            2850 01-MAY-81 NOT ELIGIBLE                                                        
+CLARK            2450 09-JUN-81 NOT ELIGIBLE                                                        
+SCOTT            3000 19-APR-87 NOT ELIGIBLE                                                        
+KING             5000 17-NOV-81 ELIGIBLE                                                            
+TURNER           1500 08-SEP-81 NOT ELIGIBLE                                                        
+ADAMS            1100 23-MAY-87 NOT ELIGIBLE                                                        
+JAMES             950 03-DEC-81 NOT ELIGIBLE                                                        
+FORD             3000 03-DEC-81 NOT ELIGIBLE                                                        
+MILLER           1300 23-JAN-82 NOT ELIGIBLE                                                        
+
+14 rows selected.
+
+SQL> SELECT ENAME,
+  2         SAL,
+  3         CASE
+  4             WHEN SAL >= 5000 THEN 'A'
+  5             WHEN SAL >= 3000 THEN 'B'
+  6             WHEN SAL >= 1500 THEN 'C'
+  7             ELSE 'D'
+  8         END AS GRADE
+  9  FROM EMP;
+
+ENAME             SAL G                                                                             
+---------- ---------- -                                                                             
+SMITH             800 D                                                                             
+ALLEN            1600 C                                                                             
+WARD             1250 D                                                                             
+JONES            2975 C                                                                             
+MARTIN           1250 D                                                                             
+BLAKE            2850 C                                                                             
+CLARK            2450 C                                                                             
+SCOTT            3000 B                                                                             
+KING             5000 A                                                                             
+TURNER           1500 C                                                                             
+ADAMS            1100 D                                                                             
+JAMES             950 D                                                                             
+FORD             3000 B                                                                             
+MILLER           1300 D                                                                             
+
+14 rows selected.
+
+SQL> spool off
